@@ -3,10 +3,13 @@ import pokeball from "../../assets/pokeball_infos.svg";
 
 export default function InfosMessage({ fetchMessage, showModal, setShowModal }) {
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       console.log("render");
       setShowModal(false);
     }, 5000);
+
+    //fonction de nettoyage
+    return () => clearTimeout(timer);
   }, [showModal]);
 
   return (

@@ -19,7 +19,15 @@ export default function SignUp() {
   async function handleSubmit(e) {
     e.preventDefault();
     if (checkValidation(inputUserState)) {
-      await postUserData(inputUserState);
+      try {
+        const result = await postUserData(inputUserState);
+        console.log("result :", result);
+        setFetchMessage(result.message);
+        setShowModal(true);
+      } catch (error) {
+        setFetchMessage(error.message);
+        setShowModal(true);
+      }
     }
   }
 
