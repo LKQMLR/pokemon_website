@@ -9,21 +9,21 @@ import InfosMessage from "../modals/InfosMessage";
 import useFormValidation from "../hooks/useFormValidation";
 import { useState } from "react";
 import { postUserData } from "../../api/api.js";
+import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {
   const { showValidation, checkValidation } = useFormValidation();
   const { inputUserState, setInputUserState } = useInputState();
   const [fetchMessage, setFetchMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
     if (checkValidation(inputUserState)) {
       try {
-        const result = await postUserData(inputUserState);
-        console.log("result :", result);
-        setFetchMessage(result.message);
-        setShowModal(true);
+        const response = await postUserData(inputUserState);
+        navigate("/");
       } catch (error) {
         setFetchMessage(error.message);
         setShowModal(true);
